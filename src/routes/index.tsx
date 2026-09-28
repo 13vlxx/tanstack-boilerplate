@@ -1,19 +1,29 @@
-import { createFileRoute } from "@tanstack/react-router"
-import { Button } from "@/components/ui/button"
+import { Link, createFileRoute } from "@tanstack/react-router"
+import { buttonVariants } from "@/components/ui/button"
 
-export const Route = createFileRoute("/")({ component: App })
+export const Route = createFileRoute("/")({ component: HomePage })
 
-function App() {
+function HomePage() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
+    <section className="flex flex-col items-start gap-4 py-12">
+      <h1 className="font-heading text-4xl font-semibold tracking-tight">
+        TanStack Start × NestJS
+      </h1>
+      <p className="max-w-prose text-muted-foreground">
+        Server-rendered public pages, a Logto session in the browser, and the
+        API data cached by TanStack Query.
+      </p>
+      <div className="flex gap-2">
+        <Link to="/blog" className={buttonVariants()}>
+          Read the blog
+        </Link>
+        <Link
+          to="/dashboard"
+          className={buttonVariants({ variant: "outline" })}
+        >
+          Dashboard
+        </Link>
       </div>
-    </div>
+    </section>
   )
 }

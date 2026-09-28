@@ -10,33 +10,169 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProtectedRouteRouteImport } from './routes/_protected/route'
+import { Route as ProtectedAdminRouteRouteImport } from './routes/_protected/admin/route'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as CallbackIndexRouteImport } from './routes/callback/index'
+import { Route as LoginIndexRouteImport } from './routes/login/index'
+import { Route as RegisterIndexRouteImport } from './routes/register/index'
+import { Route as ProtectedAdminIndexRouteImport } from './routes/_protected/admin/index'
+import { Route as ProtectedDashboardIndexRouteImport } from './routes/_protected/dashboard/index'
+import { Route as ProtectedProfileIndexRouteImport } from './routes/_protected/profile/index'
+import { Route as BlogPostIdIndexRouteImport } from './routes/blog/$postId/index'
+import { Route as ProtectedAdminUsersIndexRouteImport } from './routes/_protected/admin/users/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProtectedRouteRoute = ProtectedRouteRouteImport.update({
+  id: '/_protected',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProtectedAdminRouteRoute = ProtectedAdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CallbackIndexRoute = CallbackIndexRouteImport.update({
+  id: '/callback/',
+  path: '/callback/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginIndexRoute = LoginIndexRouteImport.update({
+  id: '/login/',
+  path: '/login/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterIndexRoute = RegisterIndexRouteImport.update({
+  id: '/register/',
+  path: '/register/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProtectedAdminIndexRoute = ProtectedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProtectedAdminRouteRoute,
+} as any)
+const ProtectedDashboardIndexRoute = ProtectedDashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
+const ProtectedProfileIndexRoute = ProtectedProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
+const BlogPostIdIndexRoute = BlogPostIdIndexRouteImport.update({
+  id: '/blog/$postId/',
+  path: '/blog/$postId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProtectedAdminUsersIndexRoute =
+  ProtectedAdminUsersIndexRouteImport.update({
+    id: '/users/',
+    path: '/users/',
+    getParentRoute: () => ProtectedAdminRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof ProtectedAdminRouteRouteWithChildren
+  '/blog/': typeof BlogIndexRoute
+  '/callback/': typeof CallbackIndexRoute
+  '/login/': typeof LoginIndexRoute
+  '/register/': typeof RegisterIndexRoute
+  '/admin/': typeof ProtectedAdminIndexRoute
+  '/dashboard/': typeof ProtectedDashboardIndexRoute
+  '/profile/': typeof ProtectedProfileIndexRoute
+  '/blog/$postId/': typeof BlogPostIdIndexRoute
+  '/admin/users/': typeof ProtectedAdminUsersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/blog': typeof BlogIndexRoute
+  '/callback': typeof CallbackIndexRoute
+  '/login': typeof LoginIndexRoute
+  '/register': typeof RegisterIndexRoute
+  '/admin': typeof ProtectedAdminIndexRoute
+  '/dashboard': typeof ProtectedDashboardIndexRoute
+  '/profile': typeof ProtectedProfileIndexRoute
+  '/blog/$postId': typeof BlogPostIdIndexRoute
+  '/admin/users': typeof ProtectedAdminUsersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_protected': typeof ProtectedRouteRouteWithChildren
+  '/_protected/admin': typeof ProtectedAdminRouteRouteWithChildren
+  '/blog/': typeof BlogIndexRoute
+  '/callback/': typeof CallbackIndexRoute
+  '/login/': typeof LoginIndexRoute
+  '/register/': typeof RegisterIndexRoute
+  '/_protected/admin/': typeof ProtectedAdminIndexRoute
+  '/_protected/dashboard/': typeof ProtectedDashboardIndexRoute
+  '/_protected/profile/': typeof ProtectedProfileIndexRoute
+  '/blog/$postId/': typeof BlogPostIdIndexRoute
+  '/_protected/admin/users/': typeof ProtectedAdminUsersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/blog/'
+    | '/callback/'
+    | '/login/'
+    | '/register/'
+    | '/admin/'
+    | '/dashboard/'
+    | '/profile/'
+    | '/blog/$postId/'
+    | '/admin/users/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/blog'
+    | '/callback'
+    | '/login'
+    | '/register'
+    | '/admin'
+    | '/dashboard'
+    | '/profile'
+    | '/blog/$postId'
+    | '/admin/users'
+  id:
+    | '__root__'
+    | '/'
+    | '/_protected'
+    | '/_protected/admin'
+    | '/blog/'
+    | '/callback/'
+    | '/login/'
+    | '/register/'
+    | '/_protected/admin/'
+    | '/_protected/dashboard/'
+    | '/_protected/profile/'
+    | '/blog/$postId/'
+    | '/_protected/admin/users/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ProtectedRouteRoute: typeof ProtectedRouteRouteWithChildren
+  BlogIndexRoute: typeof BlogIndexRoute
+  CallbackIndexRoute: typeof CallbackIndexRoute
+  LoginIndexRoute: typeof LoginIndexRoute
+  RegisterIndexRoute: typeof RegisterIndexRoute
+  BlogPostIdIndexRoute: typeof BlogPostIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +184,123 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_protected': {
+      id: '/_protected'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof ProtectedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_protected/admin': {
+      id: '/_protected/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof ProtectedAdminRouteRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/callback/': {
+      id: '/callback/'
+      path: '/callback'
+      fullPath: '/callback/'
+      preLoaderRoute: typeof CallbackIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login/': {
+      id: '/login/'
+      path: '/login'
+      fullPath: '/login/'
+      preLoaderRoute: typeof LoginIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register/': {
+      id: '/register/'
+      path: '/register'
+      fullPath: '/register/'
+      preLoaderRoute: typeof RegisterIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_protected/admin/': {
+      id: '/_protected/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof ProtectedAdminIndexRouteImport
+      parentRoute: typeof ProtectedAdminRouteRoute
+    }
+    '/_protected/dashboard/': {
+      id: '/_protected/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof ProtectedDashboardIndexRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/_protected/profile/': {
+      id: '/_protected/profile/'
+      path: '/profile'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof ProtectedProfileIndexRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/blog/$postId/': {
+      id: '/blog/$postId/'
+      path: '/blog/$postId'
+      fullPath: '/blog/$postId/'
+      preLoaderRoute: typeof BlogPostIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_protected/admin/users/': {
+      id: '/_protected/admin/users/'
+      path: '/users'
+      fullPath: '/admin/users/'
+      preLoaderRoute: typeof ProtectedAdminUsersIndexRouteImport
+      parentRoute: typeof ProtectedAdminRouteRoute
+    }
   }
 }
 
+interface ProtectedAdminRouteRouteChildren {
+  ProtectedAdminIndexRoute: typeof ProtectedAdminIndexRoute
+  ProtectedAdminUsersIndexRoute: typeof ProtectedAdminUsersIndexRoute
+}
+
+const ProtectedAdminRouteRouteChildren: ProtectedAdminRouteRouteChildren = {
+  ProtectedAdminIndexRoute: ProtectedAdminIndexRoute,
+  ProtectedAdminUsersIndexRoute: ProtectedAdminUsersIndexRoute,
+}
+
+const ProtectedAdminRouteRouteWithChildren =
+  ProtectedAdminRouteRoute._addFileChildren(ProtectedAdminRouteRouteChildren)
+
+interface ProtectedRouteRouteChildren {
+  ProtectedAdminRouteRoute: typeof ProtectedAdminRouteRouteWithChildren
+  ProtectedDashboardIndexRoute: typeof ProtectedDashboardIndexRoute
+  ProtectedProfileIndexRoute: typeof ProtectedProfileIndexRoute
+}
+
+const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
+  ProtectedAdminRouteRoute: ProtectedAdminRouteRouteWithChildren,
+  ProtectedDashboardIndexRoute: ProtectedDashboardIndexRoute,
+  ProtectedProfileIndexRoute: ProtectedProfileIndexRoute,
+}
+
+const ProtectedRouteRouteWithChildren = ProtectedRouteRoute._addFileChildren(
+  ProtectedRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ProtectedRouteRoute: ProtectedRouteRouteWithChildren,
+  BlogIndexRoute: BlogIndexRoute,
+  CallbackIndexRoute: CallbackIndexRoute,
+  LoginIndexRoute: LoginIndexRoute,
+  RegisterIndexRoute: RegisterIndexRoute,
+  BlogPostIdIndexRoute: BlogPostIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
